@@ -2,7 +2,7 @@ import pymorphy3
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk import sent_tokenize
-import os
+import string
 nltk.download('punkt')
 nltk.download('punkt_tab')
 morph = pymorphy3.MorphAnalyzer()
@@ -20,7 +20,8 @@ file.close()
 sent = sent_tokenize(text)
 tokens = []
 for i in sent:
-    tokens.append(word_tokenize(i))
+    cleaned_sent = ''.join(char for char in i if char not in string.punctuation)
+    tokens.append(word_tokenize(cleaned_sent))
 results = []
 for word in tokens:
     for i in range(len(word) - 1):
